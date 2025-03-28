@@ -1,0 +1,124 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Custom styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+/* Navbar active item */
+.navbar-dark .navbar-nav .nav-link.active {
+    font-weight: 600;
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+/* Article card styling */
+.news-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.news-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* News detail page */
+.news-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.news-content img {
+    max-width: 100%;
+    height: auto;
+    margin: 1.5rem 0;
+}
+
+/* Featured news slider */
+.featured-slider {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.featured-slide {
+    position: relative;
+    height: 400px;
+}
+
+.featured-slide img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.featured-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+    color: #fff;
+}
+
+.featured-caption h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+/* Pagination customization */
+.pagination .page-link {
+    color: #0d6efd;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+/* Category badges */
+.category-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1;
+}
+
+/* Comment section */
+.comment-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+}
+
+.comment-meta {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .featured-slide {
+        height: 300px;
+    }
+    
+    .featured-slide img {
+        height: 300px;
+    }
+    
+    .featured-caption h3 {
+        font-size: 1.2rem;
+    }
+}
