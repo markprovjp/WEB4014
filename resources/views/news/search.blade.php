@@ -9,8 +9,8 @@
             @foreach ($news as $item)
                 <div class="col-md-6 mb-3">
                     <div class="card">
-                        @if ($item->image)
-                            <img src="{{ asset('' . $item->image) }}" class="card-img-top" alt="{{ $item->title }}">
+                        @if ($item->thumbnail)
+                            <img src="{{ asset('storage/' . $item->thumbnail) }}" class="card-img-top" alt="{{ $item->title }}">
                         @endif
                         <div class="card-body">
                             <h5><a href="{{ route('news.detail', $item->id) }}">{{ $item->title }}</a></h5>

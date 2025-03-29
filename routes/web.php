@@ -4,11 +4,19 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\UsersController as AdminUsersController;
+use App\Http\Controllers\Admin\CommentsController as AdminCommentsController;
 use Illuminate\Support\Facades\Auth;
 Route::get('/', [HomeController::class, 'index'])->name('home');
+// profile
+Route::get('/profile', [HomeController::class, 'profile'])->name('profile.show');
+Route::post('/profile', [HomeController::class, 'updateProfile'])->name('profile.comments');
+Route::post('/profiles', [HomeController::class, 'updateProfile'])->name('profile.update');
+Route::post('/profiless', [HomeController::class, 'updateProfile'])->name('profile.change-password');
+Route::post('/profisle', [HomeController::class, 'updateProfile'])->name('profile.notifications');
 
 // Tin tức
 Route::get('/news/{id}', [NewsController::class, 'detail'])->name('news.detail');
@@ -33,6 +41,11 @@ Route::post('/password/reset', [App\Http\Controllers\Auth\ResetPasswordControlle
 
 Route::prefix('admin')->middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('categories', CategoryController::class);
+    Route::resource('categories', AdminCategoryController::class);
     Route::resource('news', AdminNewsController::class);
+    Route::resource('users', AdminUsersController::class);
+    Route::resource('comments', AdminCommentsController::class);
+    Route::post('comments/{comment}/approve', [AdminCommentsController::class, 'approve'])->name('comments.approve');
+    Route::post('comments/{comment}/reject', [AdminCommentsController::class, 'reject'])->name('comments.reject');
+    
 });

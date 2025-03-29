@@ -8,8 +8,8 @@
         @foreach ($featuredNews as $news)
             <div class="col-md-6 mb-3">
                 <div class="card">
-                    @if ($news->image)
-                        <img src="{{ asset('public/img/' . $news->image) }}" class="card-img-top" alt="{{ $news->title }}">
+                    @if ($news->thumbnail)
+                        <img src="{{ asset('storage/' . $news->thumbnail) }}" class="card-img-top" alt="{{ $news->title }}">
                     @endif
                     <div class="card-body">
                         <h5><a href="{{ route('news.detail', $news->id) }}">{{ $news->title }}</a></h5>
@@ -25,8 +25,8 @@
         @foreach ($latestNews as $news)
             <div class="col-md-6 mb-3">
                 <div class="card">
-                    @if ($news->image)
-                        <img src="{{ asset('public/img/' . $news->image) }}" class="card-img-top" alt="{{ $news->title }}">
+                    @if ($news->thumbnail)
+                        <img src="{{ asset('storage/' . $news->thumbnail) }}" class="card-img-top" alt="{{ $news->title }}">
                     @endif
                     <div class="card-body">
                         <h5><a href="{{ route('news.detail', $news->id) }}">{{ $news->title }}</a></h5>

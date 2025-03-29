@@ -2,8 +2,8 @@
 @section('title', $news->title)
 @section('main-content')
     <div class="card">
-        @if ($news->image)
-            <img src="{{ asset('' . $news->image) }}" class="card-img-top" alt="{{ $news->title }}">
+        @if ($news->thumbnail)
+            <img src="{{ asset('storage/' . $news->thumbnail) }}" class="card-img-top" alt="{{ $news->title }}">
         @endif
         <div class="card-body">
             <h1>{{ $news->title }}</h1>

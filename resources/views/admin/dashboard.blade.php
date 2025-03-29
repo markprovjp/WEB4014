@@ -54,7 +54,7 @@
                 </div>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a href="#" class="text-white text-decoration-none">Xem chi tiết</a>
+                <a href="{{ route('admin.users.index') }}" class="text-white text-decoration-none">Xem chi tiết</a>
                 <i class="fas fa-arrow-circle-right"></i>
             </div>
         </div>
@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a href="#" class="text-white text-decoration-none">Xem chi tiết</a>
+                <a href="{{ route('admin.comments.index') }}" class="text-white text-decoration-none">Xem chi tiết</a>
                 <i class="fas fa-arrow-circle-right"></i>
             </div>
         </div>
