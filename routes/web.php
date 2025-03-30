@@ -7,9 +7,11 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Middleware\AdminMiddleware;
+
+// Route trang chủ - không yêu cầu auth
 Route::get('/', function () {
-    return redirect()->route('login');
-})->name('home');
+    return view('home');
+})->name('index');
 
 // Guest routes - for unauthenticated users
 Route::middleware('guest')->group(function () {
@@ -27,14 +29,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    
     Route::resource('expenses', ExpenseController::class);
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
 
     // Admin routes
-    Route::middleware([\App\Http\Middleware\AdminMiddleware::class])->prefix('admin')->name('admin.')->group(function () {
+    Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->group(function () {
         // Admin dashboard
-        Route::get('/admin', function () {
-            return view('dashboard');
+        Route::get('/dashboard', function () {
+            return view('admin.dashboard');
         })->name('dashboard');
         
         // User management
@@ -54,8 +57,6 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
     });
 });
-
-
 
 Route::get('/debug-middleware', function () {
     dd(app()->make(\Illuminate\Routing\Router::class)->getMiddleware());

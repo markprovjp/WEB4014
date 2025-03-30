@@ -45,7 +45,7 @@ class AuthController extends Controller
         if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
             
-            return redirect()->route('dashboard');
+            return redirect()->route('index');
         }
 
         return back()->withErrors(['email' => 'Thông tin không hợp lệ.']);
@@ -56,6 +56,6 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('login');
+        return redirect()->route('index');
     }
 }

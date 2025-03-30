@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý chi tiêu - {{ auth()->user()->isAdmin() ? 'Admin' : ' CashFlowX ' }}</title>
+    <title>Quản lý chi tiêu - {{ auth()->check() ? (auth()->user()->isAdmin() ? 'Quản trị viên' : 'CashFlowX') : 'CashFlowX' }}</title>
     {{-- link logo --}}
     <link rel="icon" href="{{ asset('img/logo/logo.png') }}">
     {{-- link css --}}
@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
-        /* Custom CSS cho giao diện quản lý chi tiêu */
+        /* Tùy chỉnh giao diện quản lý chi tiêu */
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -27,7 +27,7 @@
             transition: color 0.3s ease;
         }
         .nav-link:hover {
-            color: #ffd700 !important; /* Vàng nhẹ khi hover */
+            color: #ffd700 !important;
         }
         .container {
             max-width: 1200px;
@@ -47,51 +47,59 @@
     </style>
 </head>
 <body>
+    @auth
     <nav class="navbar navbar-expand-lg {{ auth()->user()->isAdmin() ? 'navbar-dark bg-dark' : 'navbar-light bg-primary' }}">
+    @else
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    @endauth
         <div class="container">
-            <a class="navbar-brand" href="#">
-                {{ auth()->user()->isAdmin() ? 'Admin Panel' : 'Expense Tracker' }}
+            <a class="navbar-brand" href="{{ route('index') }}">
+                {{ auth()->check() && auth()->user()->isAdmin() ? 'Trang quản trị' : 'Expense Tracker' }}
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Chuyển đổi điều hướng">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    @if(auth()->user()->isAdmin())
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.users') }}"><i class="fas fa-users"></i> Users</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.reports') }}"><i class="fas fa-chart-bar"></i> Reports</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.notifications') }}"><i class="fas fa-bell"></i> Notifications</a>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('expenses.index') }}"><i class="fas fa-wallet"></i> Expenses</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('reports.index') }}"><i class="fas fa-chart-pie"></i> Reports</a>
-                        </li>
-                    @endif
+                    @auth
+                        @if(auth()->user()->isAdmin())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.users') }}"><i class="fas fa-users"></i> Người dùng</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.reports') }}"><i class="fas fa-chart-bar"></i> Báo cáo</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.notifications') }}"><i class="fas fa-bell"></i> Thông báo</a>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('dashboard') }}"><i class="fas fa-tachometer-alt"></i> Bảng điều khiển</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('expenses.index') }}"><i class="fas fa-wallet"></i> Chi tiêu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('reports.index') }}"><i class="fas fa-chart-pie"></i> Báo cáo</a>
+                            </li>
+                        @endif
+                    @endauth
                 </ul>
+                @auth
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <span class="nav-link">
-                            {{ auth()->user()->isAdmin() ? 'Admin' : 'Welcome' }}, {{ auth()->user()->email }}
+                            {{ auth()->user()->isAdmin() ? 'Quản trị viên' : 'Xin chào' }}, {{ auth()->user()->name }}
                         </span>
                     </li>
                     <li class="nav-item">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <button type="submit" class="nav-link btn btn-link text-white"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                            <button type="submit" class="nav-link btn btn-link text-white"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
                         </form>
                     </li>
                 </ul>
+                @endauth
             </div>
         </div>
     </nav>
