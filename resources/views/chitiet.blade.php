@@ -1,4 +1,4 @@
-@extends('layout')
+{{-- @extends('layout')
 @section('tieudetrang')
     {{ $tin->TieuDe }}
 @endsection
@@ -161,4 +161,4 @@
         color: #0d6efd;
     }
 </style>
-@endsection
+@endsection --}}
