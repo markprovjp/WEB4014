@@ -25,5 +25,9 @@ class DatabaseSeeder extends Seeder
         'name' => 'Nguyen Thi Gia Hu', 'email' => 'giahu@gmail.com',
         'password' => bcrypt('hihi'), 'idgroup' => 0, 'address'=>'HN'
         ]);
-        }
+
+        $this->call([
+            ProductSeeder::class,
+        ]);
+    }
 }

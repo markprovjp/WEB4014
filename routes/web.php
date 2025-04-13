@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
 Route::get('download', function () {
     return view('download');
 })->middleware(['auth', 'verified'])->name('download');
+
 Route::get('/quantri', function () {
     return view('quantri');
 
