@@ -25,7 +25,6 @@ class News extends Model
         'title',
         'slug',
         'content',
-        'summary',
         'thumbnail',
         'views',
         'hot',

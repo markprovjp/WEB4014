@@ -137,7 +137,7 @@
             padding: 1rem 1.5rem;
         }
         
-        /* Category badge */
+              /* Category badge improvements */
         .category-badge {
             background-color: var(--primary-color);
             color: white;
@@ -147,13 +147,50 @@
             font-size: 0.8rem;
             text-decoration: none;
             transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
         }
         
         .category-badge:hover {
             background-color: var(--secondary-color);
             color: white;
+            transform: translateY(-2px);
         }
         
+        .category-badge .badge {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.4rem;
+        }
+        
+        /* Category card for category page */
+        .category-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            height: 100%;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .category-card .card-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .category-card i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
         /* Popular news */
         .popular-news {
             border-radius: 10px;
@@ -470,21 +507,6 @@
                     </div>
                 </div>
 
-                <!-- Categories widget -->
-                <div class="card mb-4 shadow-sm" data-aos="fade-up">
-                    <div class="card-header bg-secondary text-white">
-                        <h5 class="card-title mb-0"><i class="fas fa-list me-2"></i>Chuyên mục</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex flex-wrap gap-2">
-                            @foreach ($categories ?? [] as $category)
-                                <a href="{{ route('category.news', $category->id) }}" class="category-badge">
-                                    {{ $category->name }}
-                                </a>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
 
                 @yield('sidebar')
             </div>
@@ -507,16 +529,24 @@
                         <a href="#" class="text-white"><i class="fab fa-tiktok"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+                               <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
                     <h5>Danh mục</h5>
                     <ul class="list-unstyled">
-                                             @foreach($categories->take(5) as $category)
+                        @if(isset($categories) && $categories->count() > 0)
+                            @foreach($categories->take(5) as $category)
+                                <li class="mb-2">
+                                    <a href="{{ route('category.news', $category->id) }}" class="text-white">
+                                        <i class="fas fa-angle-right me-2"></i> {{ $category->name }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        @else
                             <li class="mb-2">
-                                <a href="{{ route('category.news', $category->id) }}" class="text-white">
-                                    <i class="fas fa-angle-right me-2"></i> {{ $category->name }}
-                                </a>
+                                <span class="text-white opacity-75">
+                                    <i class="fas fa-info-circle me-2"></i> Đang cập nhật...
+                                </span>
                             </li>
-                        @endforeach
+                        @endif
                     </ul>
                 </div>
                 <div class="col-lg-2 col-md-4 mb-4 mb-md-0">

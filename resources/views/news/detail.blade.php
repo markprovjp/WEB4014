@@ -9,7 +9,7 @@
             <h1>{{ $news->title }}</h1>
             <p class="text-muted">Lượt xem: {{ $news->views }} | Ngày đăng: {{ $news->created_at->format('d/m/Y H:i') }}</p>
             <p>{{ $news->description }}</p>
-            <div>{!! nl2br(e($news->content)) !!}</div>
+            <div class="news-content">{!! $news->content !!}</div>
         </div>
     </div>
 
@@ -39,4 +39,37 @@
     @else
         <p class="mt-3">Vui lòng <a href="{{ route('login') }}">đăng nhập</a> để bình luận.</p>
     @endauth
+@endsection
+
+@section('styles')
+    <style>
+        .news-content img {
+            max-width: 100%;
+            height: auto;
+            margin: 10px 0;
+        }
+
+        .news-content {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .news-content h2,
+        .news-content h3,
+        .news-content h4 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .news-content p {
+            margin-bottom: 16px;
+        }
+
+        .news-content ul,
+        .news-content ol {
+            margin-bottom: 16px;
+            padding-left: 20px;
+        }
+    </style>
 @endsection

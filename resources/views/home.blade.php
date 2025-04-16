@@ -3,6 +3,7 @@
 @section('title', 'Trang chủ')
 
 @section('main-content')
+
     <h2 class="mb-3">Tin nổi bật</h2>
     <div class="row">
         @foreach ($featuredNews as $news)

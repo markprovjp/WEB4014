@@ -24,7 +24,7 @@ class ForgotPasswordController extends Controller
         return view('auth.passwords.email');
     }
     
-    public function sendResetLinkEmail(Request $request)
+        public function sendResetLinkEmail(Request $request)
     {
         $request->validate(['email' => 'required|email']);
         
@@ -34,8 +34,8 @@ class ForgotPasswordController extends Controller
             return back()->withErrors(['email' => 'Không tìm thấy tài khoản với địa chỉ email này.']);
         }
         
-        // Tạo token random
-        $token = Str::random(60);
+        // Tạo token 6 số ngẫu nhiên
+        $token = sprintf('%06d', mt_rand(0, 999999));
         
         // Lưu token vào database
         DB::table('password_reset_tokens')->updateOrInsert(
@@ -54,6 +54,6 @@ class ForgotPasswordController extends Controller
         
         // Chuyển hướng đến trang xác minh token thay vì quay lại
         return redirect()->route('password.verify')
-            ->with('status', 'Chúng tôi đã gửi mã xác nhận đến email của bạn!');
+            ->with('status', 'Chúng tôi đã gửi mã xác nhận 6 số đến email của bạn!');
     }
 }

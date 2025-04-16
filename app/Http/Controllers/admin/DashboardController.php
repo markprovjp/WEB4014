@@ -61,4 +61,11 @@ class DashboardController extends Controller
             'usersByMonth'
         ));
     }
+
+        public function analytics()
+    {
+        // Here you would gather real analytics data
+        
+        return view('admin.analytics.index');
+    }
 }

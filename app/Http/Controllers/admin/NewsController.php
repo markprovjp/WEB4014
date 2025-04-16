@@ -51,7 +51,6 @@ class NewsController extends Controller
             'thumbnail' => 'nullable|image|max:2048', // max 2MB
             'slug' => 'nullable|unique:news,slug',
             'hot' => 'boolean',
-            'summary' => 'nullable',
             'status' => 'required|in:draft,published',
         ], [
             'title.required' => 'Tiêu đề không được để trống',
@@ -135,7 +134,7 @@ class NewsController extends Controller
         ]);
 
         $data = $request->all();
-        dd($data);
+        // dd($data);
         // Tự động tạo slug nếu không có
         if (empty($data['slug'])) {
             $data['slug'] = Str::slug($data['title']);
